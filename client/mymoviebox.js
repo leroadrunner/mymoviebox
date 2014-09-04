@@ -9,7 +9,8 @@ Template.movies.items = function () {
 Template.movies.events({
   'click .item': function (evt) {
     Router.setMovie(this.imdbID); 
-    $('body').addClass( 'modal-open' );  
+    $('body').addClass( 'modal-open' ); 
+    // console.log(Meteor.user().profile);
   },
   'click .no-target': function (evt) {
     evt.stopPropagation();

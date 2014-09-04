@@ -8,6 +8,7 @@ Meteor.startup(function() {
 });
 
 Accounts.onCreateUser(function(options, user) {
-  user.moviesList = Movies.find().fetch();
+  user.profile = {};
+  user.profile.moviesList = Movies.find().fetch();  
   return user;
 });
