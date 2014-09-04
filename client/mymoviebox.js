@@ -36,4 +36,3 @@ Template.modal.events({
 Template.modal.movie = function () {
   return Movies.findOne({imdbID: Session.get('currentPage')}) ;
 }
-

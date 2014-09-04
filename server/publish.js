@@ -6,3 +6,8 @@ Meteor.startup(function() {
 	});
 	console.log('---- server start');
 });
+
+Accounts.onCreateUser(function(options, user) {
+  user.moviesList = Movies.find().fetch();
+  return user;
+});
