@@ -1,0 +1,68 @@
+<head>
+  <title>mymoviebox</title>
+</head>
+
+<body>
+  {{> main}}
+</body>
+
+<template name="main">
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+         <a class="navbar-brand" href="#">MyMovieBox</a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active"><a href="#">Ma liste</a></li>
+          <li>{{> loginButtons align="right"}}</li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>  
+  {{> modal}}
+  {{> movies}}
+</template>  
+
+<template name="movies">
+  <div id="wrapper">
+    {{#each items}}
+    <div class="item">
+      <img  alt="{{Title}}" src="posters/{{Poster}}">  
+      <div class="mov-cover">
+        <h2> {{Title}} </h2>
+        <button type="button" class="btn btn-default no-target"> 
+          <span class="glyphicon glyphicon-plus"></span>
+          Ajouter à ma liste 
+        </button>  
+      </div>
+    </div>  
+    {{/each}}
+  </div>    
+</template>
+
+<template name="modal">
+  {{#if modalState}}
+      <div class="modal-outer">
+        {{#with movie}}
+          <a class="no-target" href="http://www.imdb.com/title/{{imdbID}}" target="_blank">
+            <img alt="{{Title}}" src="posters/{{Poster}}">
+          </a>
+          <h1> {{Title}} </h1>
+          <div class="mov-details">
+            <p> De : {{Director}} </p>
+            <p> Avec : {{Actors}} </p>
+            <p> Année : {{Year}} </p>
+            <p> Pays : {{Country}} </p> 
+            <p> Type : {{Type}} </p>
+          </div>
+          <button type="button" class="btn btn-default no-target"> 
+            <span class="glyphicon glyphicon-plus"></span>
+            Ajouter à ma liste 
+          </button>        
+        {{/with}}         
+      </div>
+  {{/if}}
+</template>
