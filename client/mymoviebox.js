@@ -1,5 +1,8 @@
 Meteor.subscribe("Movies");
+Meteor.subscribe("UserData");
 Movies = new Meteor.Collection("movies");
+UserData = new Meteor.Collection("userData");
+
 Session.setDefault('modalState', false);
 
 Template.movies.items = function () {
@@ -12,8 +15,14 @@ Template.movies.events({
     $('body').addClass( 'modal-open' ); 
     // console.log(Meteor.user().profile);
   },
-  'click .no-target': function (evt) {
+  'click .add-to-list': function (evt) {
     evt.stopPropagation();
+    console.log(UserData.find().fetch()[0].moviesList) ;
+    // console.log(UserData.find({movieList: "300"}).fetch()) ; 
+    // console.log(UserData.find({}, {'0.moviesList': 1}).fetch()) ; 
+    console.log(Movies.find().fetch()) ; 
+    // console.log(Meteor.user().profile);
+    // Session.set('current-song', _.extend(currentSong, { name: event.currentTarget.value }));
   }  
 });
 
