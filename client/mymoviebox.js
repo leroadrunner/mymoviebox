@@ -17,11 +17,12 @@ Template.movies.events({
   },
   'click .add-to-list': function (evt) {
     evt.stopPropagation();
-    console.log(UserData.find().fetch()[0].moviesList) ;
-    // console.log(UserData.find({movieList: "300"}).fetch()) ; 
-    // console.log(UserData.find({}, {'0.moviesList': 1}).fetch()) ; 
-    console.log(Movies.find().fetch()) ; 
-    // console.log(Meteor.user().profile);
+    // http://docs.mongodb.org/manual/tutorial/query-documents/#match-a-field-in-the-embedded-document-using-the-array-index
+    console.log(UserData.find( { 'moviesList.imdbID': "tt0119217"}, { moviesList: { $elemMatch: { imdbID: "tt0119217" }}}).fetch());
+    // console.log(UserData.find( { moviesList: { $elemMatch: { imdbID: "tt0119217" }}}).fetch());   
+    // :TODO: changer la collection avec un forEach avec userID+imdbID pour chaq record
+    // console.log(UserData.find( { moviesList: { imdbID: "tt0119217"}}).fetch()) ; 
+    // console.log(Movies.find().fetch()) ; 
     // Session.set('current-song', _.extend(currentSong, { name: event.currentTarget.value }));
   }  
 });
