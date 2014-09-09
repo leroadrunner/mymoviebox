@@ -19,7 +19,10 @@ Session.setDefault('modalState', false);
 Session.setDefault('moviesFilter', {});
 
 Template.movies.items = function () {
-  console.log(Session.get('moviesFilter'));
+  /* var sumListRaw = Movies.find({selected: Meteor.userId()}, {fields: {size: 1}}).fetch();
+  var sumList = 0;
+  _.each(sumListRaw, function(val){ sumList += parseInt(val.size) ;});
+  console.log(sumList/1024/1024); */
   return Movies.find(Session.get('moviesFilter')) ;
 }; 
 
