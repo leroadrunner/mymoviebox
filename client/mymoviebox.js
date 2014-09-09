@@ -1,6 +1,20 @@
 Meteor.subscribe("Movies");
 Movies = new Meteor.Collection("movies");
 
+function isSelected(imdbId) {
+  return ! Movies.findOne( {'imdbID': imdbId, 'selected': Meteor.userId()});
+}
+
+function addToList(imdbId) {
+    movieId = Movies.findOne( { 'imdbID': imdbId} )._id ;
+    Movies.update({ _id: movieId}, { $addToSet: {selected: Meteor.userId()}});
+}
+
+function removeFromList(imdbId) {
+    movieId = Movies.findOne( { 'imdbID': imdbId} )._id ;
+    Movies.update({ _id: movieId}, { $pull: {selected: Meteor.userId()}});
+}
+
 Session.setDefault('modalState', false);
 
 Template.movies.items = function () {
@@ -14,11 +28,18 @@ Template.movies.events({
   },
   'click .add-to-list': function (evt) {
     evt.stopPropagation();
-    movieId = Movies.findOne( { 'imdbID': this.imdbID} )._id ;
-    Movies.update({ _id: movieId}, {$set: {selected: this.userId}});
-    console.log(this.userId);
-    console.log(Movies.findOne({ _id: movieId}));
-  }  
+    addToList(this.imdbID);
+  },
+  'click .remove-from-list': function (evt) {
+    evt.stopPropagation();
+    removeFromList(this.imdbID);
+  }    
+});
+
+Template.movies.helpers({
+  selected: function () {
+    return isSelected(this.imdbID);
+  }
 });
 
 Template.modal.modalState = function () {
@@ -33,11 +54,21 @@ Template.modal.events({
     Router.unsetMovie();  
     $('body').removeClass( 'modal-open' );      
   },
-  'click .no-target': function (evt) {
+  'click .add-to-list': function (evt) {
     evt.stopPropagation();
+    addToList(this.imdbID);
+  },
+  'click .remove-from-list': function (evt) {
+    evt.stopPropagation();
+    removeFromList(this.imdbID);
   }  
 });
 
+Template.modal.helpers({
+  selected: function () {
+    return isSelected(this.imdbID);
+  }
+});
 Template.modal.movie = function () {
   return Movies.findOne({imdbID: Session.get('currentPage')}) ;
 }

@@ -33,10 +33,17 @@
       <img  alt="{{Title}}" src="posters/{{Poster}}">  
       <div class="mov-cover">
         <h2> {{Title}} </h2>
-        <button type="button" class="btn btn-default add-to-list" id="{{imdbID}}"> 
-          <span class="glyphicon glyphicon-plus"></span>
-          Ajouter à ma liste 
-        </button>  
+        {{#if selected}}
+          <button type="button" class="btn btn-default add-to-list" id="{{imdbID}}"> 
+            <span class="glyphicon glyphicon-plus"></span>
+            Ajouter à ma liste 
+          </button> 
+        {{else}}
+          <button type="button" class="btn btn-default remove-from-list" id="{{imdbID}}"> 
+            <span class="glyphicon glyphicon-minus"></span>
+            Supprimer de ma liste 
+          </button>         
+        {{/if}}        
       </div>
     </div>  
     {{/each}}
@@ -58,10 +65,17 @@
             <p> Pays : {{Country}} </p> 
             <p> Type : {{Type}} </p>
           </div>
-          <button type="button" class="btn btn-default no-target"> 
-            <span class="glyphicon glyphicon-plus"></span>
-            Ajouter à ma liste 
-          </button>        
+          {{#if selected}}
+            <button type="button" class="btn btn-default add-to-list" id="{{imdbID}}"> 
+              <span class="glyphicon glyphicon-plus"></span>
+              Ajouter à ma liste 
+            </button> 
+          {{else}}
+            <button type="button" class="btn btn-default remove-from-list" id="{{imdbID}}"> 
+              <span class="glyphicon glyphicon-minus"></span>
+              Supprimer de ma liste 
+            </button>         
+          {{/if}}       
         {{/with}}         
       </div>
   {{/if}}
