@@ -30,10 +30,10 @@
   <div id="wrapper">
     {{#each items}}
     <div class="item">
-      <img  alt="{{Title}}" src="posters/{{Poster}}">  
+      <img  alt="{{movie.Title}}" src="posters/{{movie.Poster}}">  
       <div class="mov-cover">
-        <h2> {{Title}} </h2>
-        <button type="button" class="btn btn-default add-to-list" id="{{imdbID}}"> 
+        <h2> {{movie.Title}} </h2>
+        <button type="button" class="btn btn-default add-to-list" id="{{movie.imdbID}}"> 
           <span class="glyphicon glyphicon-plus"></span>
           Ajouter à ma liste 
         </button>  
@@ -46,17 +46,17 @@
 <template name="modal">
   {{#if modalState}}
       <div class="modal-outer">
-        {{#with movie}}
-          <a class="no-target" href="http://www.imdb.com/title/{{imdbID}}" target="_blank">
-            <img alt="{{Title}}" src="posters/{{Poster}}">
+        {{#with movieDetail}}
+          <a class="no-target" href="http://www.imdb.com/title/{{movie.imdbID}}" target="_blank">
+            <img alt="{{movie.Title}}" src="posters/{{movie.Poster}}">
           </a>
-          <h1> {{Title}} </h1>
+          <h1> {{movie.Title}} </h1>
           <div class="mov-details">
-            <p> De : {{Director}} </p>
-            <p> Avec : {{Actors}} </p>
-            <p> Année : {{Year}} </p>
-            <p> Pays : {{Country}} </p> 
-            <p> Type : {{Type}} </p>
+            <p> De : {{movie.Director}} </p>
+            <p> Avec : {{movie.Actors}} </p>
+            <p> Année : {{movie.Year}} </p>
+            <p> Pays : {{movie.Country}} </p> 
+            <p> Type : {{movie.Type}} </p>
           </div>
           <button type="button" class="btn btn-default no-target"> 
             <span class="glyphicon glyphicon-plus"></span>
