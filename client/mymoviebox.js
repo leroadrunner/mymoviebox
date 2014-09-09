@@ -1,21 +1,23 @@
-Meteor.subscribe("UserData");
-UserData = new Meteor.Collection("userData");
+Meteor.subscribe("Movies");
+Movies = new Meteor.Collection("movies");
 
 Session.setDefault('modalState', false);
 
 Template.movies.items = function () {
-  return UserData.find() ;
-};
+  return Movies.find() ;
+}; 
 
 Template.movies.events({
-  'click .item': function () {
-    Router.setMovie(this.movie.imdbID); 
+  'click .item': function (evt) {
+    Router.setMovie(this.imdbID); 
     $('body').addClass( 'modal-open' ); 
   },
   'click .add-to-list': function (evt) {
     evt.stopPropagation();
-    movieId = UserData.findOne( { 'movie.imdbID': this.movie.imdbID} )._id ;
-    UserData.update({ _id: movieId}, {$set: {selected: "y"}})
+    movieId = Movies.findOne( { 'imdbID': this.imdbID} )._id ;
+    Movies.update({ _id: movieId}, {$set: {selected: this.userId}});
+    console.log(this.userId);
+    console.log(Movies.findOne({ _id: movieId}));
   }  
 });
 
@@ -36,7 +38,6 @@ Template.modal.events({
   }  
 });
 
-Template.modal.movieDetail = function () {
-  console.log(Session.get('currentPage'));
-  return UserData.findOne({'movie.imdbID': Session.get('currentPage')}) ;
+Template.modal.movie = function () {
+  return Movies.findOne({imdbID: Session.get('currentPage')}) ;
 }
