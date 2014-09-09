@@ -16,9 +16,11 @@ function removeFromList(imdbId) {
 }
 
 Session.setDefault('modalState', false);
+Session.setDefault('moviesFilter', {});
 
 Template.movies.items = function () {
-  return Movies.find() ;
+  console.log(Session.get('moviesFilter'));
+  return Movies.find(Session.get('moviesFilter')) ;
 }; 
 
 Template.movies.events({

@@ -2,7 +2,9 @@
 
 var MMBRouter = Backbone.Router.extend({
   routes: {
-    ":movie": "setMovie"
+    "mylist": "getMyList",
+    "home"  : "getAllMovies",
+    ":movie": "setMovie"    
   },
   setMovie: function (imdbID) {
     this.navigate(imdbID, true);
@@ -12,7 +14,20 @@ var MMBRouter = Backbone.Router.extend({
   unsetMovie: function () {
     this.navigate('/', true);
     Session.set('modalState', false);    
-  }    
+  },
+  getMyList: function () {
+    this.navigate('mylist', true);
+    Session.set('moviesFilter', {selected: Meteor.userId()});  
+    $('#mylist').addClass( 'active' );
+    $('#home').removeClass( 'active' );    
+  },
+  getAllMovies: function () {
+    this.navigate('home', true);
+    Session.set('moviesFilter', {});  
+    $('#home').addClass( 'active' );
+    $('#mylist').removeClass( 'active' );      
+  }
+  
 });
 
 Router = new MMBRouter;
