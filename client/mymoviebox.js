@@ -1,6 +1,9 @@
 Meteor.subscribe("Movies");
 Movies = new Meteor.Collection("movies");
 
+///////////////////////////////////////////////////////////////////////////////
+// functions
+
 function isSelected(imdbId) {
   return ! Movies.findOne( {'imdbID': imdbId, 'selected': Meteor.userId()});
 }
@@ -15,11 +18,18 @@ function removeFromList(imdbId) {
     Movies.update({ _id: movieId}, { $pull: {selected: Meteor.userId()}});
 }
 
+///////////////////////////////////////////////////////////////////////////////
+// sessions
+
 Session.setDefault('modalState', false);
 Session.setDefault('moviesFilter', {});
 
+///////////////////////////////////////////////////////////////////////////////
+// main template
+
 Template.main.helpers({
   listSize: function () {
+    // sum of the sizes of the movies in the list
     var sumList = 0;    
     var sumListRaw = Movies.find({selected: Meteor.userId()}, {fields: {size: 1}}).fetch();
     _.each(sumListRaw, function(mov){ sumList += parseInt(mov.size) ;});    
@@ -27,11 +37,10 @@ Template.main.helpers({
   }
 });
 
+///////////////////////////////////////////////////////////////////////////////
+// movies template
+
 Template.movies.items = function () {
-  /* var sumListRaw = Movies.find({selected: Meteor.userId()}, {fields: {size: 1}}).fetch();
-  var sumList = 0;
-  _.each(sumListRaw, function(mov){ sumList += parseInt(mov.size) ;});
-  console.log(sumList/1024/1024); */
   return Movies.find(Session.get('moviesFilter')) ;
 }; 
 
@@ -56,6 +65,9 @@ Template.movies.helpers({
   } 
 });
 
+///////////////////////////////////////////////////////////////////////////////
+// modal template
+
 Template.modal.modalState = function () {
   var modalState = Session.get('modalState');
   return modalState;
@@ -69,7 +81,7 @@ Template.modal.events({
     $('body').removeClass( 'modal-open' );      
   },
   'click .no-target': function (evt) {
-    evt.stopPropagation();
+    evt.stopPropagation(); // preserve the external link clickable
   },
   'click .add-to-list': function (evt) {
     evt.stopPropagation();
