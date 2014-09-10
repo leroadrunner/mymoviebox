@@ -18,10 +18,19 @@ function removeFromList(imdbId) {
 Session.setDefault('modalState', false);
 Session.setDefault('moviesFilter', {});
 
+Template.main.helpers({
+  listSize: function () {
+    var sumList = 0;    
+    var sumListRaw = Movies.find({selected: Meteor.userId()}, {fields: {size: 1}}).fetch();
+    _.each(sumListRaw, function(mov){ sumList += parseInt(mov.size) ;});    
+    return (sumList/1024/1024).toFixed(2);
+  }
+});
+
 Template.movies.items = function () {
   /* var sumListRaw = Movies.find({selected: Meteor.userId()}, {fields: {size: 1}}).fetch();
   var sumList = 0;
-  _.each(sumListRaw, function(val){ sumList += parseInt(val.size) ;});
+  _.each(sumListRaw, function(mov){ sumList += parseInt(mov.size) ;});
   console.log(sumList/1024/1024); */
   return Movies.find(Session.get('moviesFilter')) ;
 }; 
@@ -44,7 +53,7 @@ Template.movies.events({
 Template.movies.helpers({
   selected: function () {
     return isSelected(this.imdbID);
-  }
+  } 
 });
 
 Template.modal.modalState = function () {
@@ -72,8 +81,12 @@ Template.modal.events({
 Template.modal.helpers({
   selected: function () {
     return isSelected(this.imdbID);
-  }
+  },
+  size: function () {
+    return (this.size/1024/1024).toFixed(2);    
+  }  
 });
+
 Template.modal.movie = function () {
   return Movies.findOne({imdbID: Session.get('currentPage')}) ;
 }

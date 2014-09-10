@@ -16,7 +16,7 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
-          <li id="mylist"><a href="mylist">Ma liste</a></li>
+          <li id="mylist"><a href="mylist">Ma liste [ {{listSize}} Go ] </a></li>
           <li id="home" class="active"><a href="home"><span class="glyphicon glyphicon-home"></span></a></li>
           <li>{{> loginButtons align="right"}}</li>
         </ul>
@@ -65,6 +65,8 @@
             <p> Année : {{Year}} </p>
             <p> Pays : {{Country}} </p> 
             <p> Type : {{Type}} </p>
+            <br>
+            <p> Taille : {{size}} Go </p>            
           </div>
           {{#if selected}}
             <button type="button" class="btn btn-default add-to-list" id="{{imdbID}}"> 
@@ -76,7 +78,8 @@
               <span class="glyphicon glyphicon-minus"></span>
               Supprimer de ma liste 
             </button>         
-          {{/if}}       
+          {{/if}}    
+            <br><br>        
         {{/with}}         
       </div>
   {{/if}}
