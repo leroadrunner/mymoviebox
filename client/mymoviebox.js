@@ -68,6 +68,9 @@ Template.modal.events({
     Router.unsetMovie();  
     $('body').removeClass( 'modal-open' );      
   },
+  'click .no-target': function (evt) {
+    evt.stopPropagation();
+  },
   'click .add-to-list': function (evt) {
     evt.stopPropagation();
     addToList(this.imdbID);
