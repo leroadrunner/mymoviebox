@@ -1,0 +1,1 @@
+# mongorestore -h 127.0.0.1:3001 --db meteor mongodump-20140510200920/mymoviebox_meteor_com/movies.bson 
