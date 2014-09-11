@@ -41,7 +41,7 @@ Template.main.helpers({
 // movies template
 
 Template.movies.items = function () {
-  return Movies.find(Session.get('moviesFilter'), {sort: {mmbRecordDate: 1}}) ; // moviesFilter activate the list - with the router
+  return Movies.find(Session.get('moviesFilter'), {sort: {mmbRecordDate: -1}}) ; // moviesFilter activate the list - with the router
 }; 
 
 Template.movies.events({

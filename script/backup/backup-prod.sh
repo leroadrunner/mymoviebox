@@ -1,6 +1,6 @@
 repout=./
 i=0
-file=mongodump-`date '+%Y%M%d%H%m%S'`
+file=mongodump-`date '+%Y%m%d%H%M%S'`
 
 function getCredentials() {
 	url=`meteor mongo --url mymoviebox`

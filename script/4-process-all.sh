@@ -2,7 +2,7 @@
 repdata=../data
 repin=$repdata/processed-image
 repout=$repdata/processed-all
-mmbRecordDate=`date '+%Y%M%d%H%m%S'`
+mmbRecordDate=`date '+%Y%m%d%H%M%S'`
 
 for i in `ls $repin/*.json`;  do 
   file=`basename $i`
